@@ -9,16 +9,18 @@ document.addEventListener('DOMContentLoaded', function () {
   const quoteText = document.getElementById('quote-text');
   const quoteCategory = document.getElementById('quote-category');
   const newQuoteBtn = document.getElementById('new-quote-btn');
-  const categorySelect = document.getElementById('category-select');
+  const categorySelect = document.getElementById('categoryFilter');
 
   // Populate categories dynamically
   function populateCategories() {
     const categories = [...new Set(quotes.map(q => q.category))];
     categories.forEach(cat => {
-      const option = document.createElement('option');
-      option.value = cat;
-      option.textContent = cat;
-      categorySelect.appendChild(option);
+      if (![...categorySelect.options].some(opt => opt.value === cat)) {
+        const option = document.createElement('option');
+        option.value = cat;
+        option.textContent = cat;
+        categorySelect.appendChild(option);
+      }
     });
   }
 
@@ -42,6 +44,13 @@ document.addEventListener('DOMContentLoaded', function () {
 
     quoteText.textContent = quote.text;
     quoteCategory.textContent = `Category: ${quote.category}`;
+  }
+
+  // Filter quotes based on category & save selection
+  function filterQuotes() {
+    const selectedCategory = categorySelect.value;
+    localStorage.setItem("lastSelectedCategory", selectedCategory);
+    displayRandomQuote();
   }
 
   // Add new quote
@@ -92,10 +101,17 @@ document.addEventListener('DOMContentLoaded', function () {
 
   // Event listeners
   newQuoteBtn.addEventListener('click', displayRandomQuote);
-  categorySelect.addEventListener('change', displayRandomQuote);
+  categorySelect.addEventListener('change', filterQuotes);
 
   // Initialize
   populateCategories();
+
+  // Restore last selected category from local storage
+  const savedCategory = localStorage.getItem("lastSelectedCategory");
+  if (savedCategory) {
+    categorySelect.value = savedCategory;
+  }
+
   displayRandomQuote();
   createAddQuoteForm();
 });
