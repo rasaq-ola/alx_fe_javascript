@@ -14,7 +14,13 @@
   <!-- Show Random Quote Button -->
   <button id="newQuote" onclick="showRandomQuote()">Show New Quote</button>
 
-  <!-- The Add Quote form will be created dynamically -->
+  <!-- Add Quote Form will be created dynamically -->
+
+  <!-- Import/Export Controls -->
+  <div>
+    <button onclick="exportToJsonFile()">Export Quotes</button>
+    <input type="file" id="importFile" accept=".json" onchange="importFromJsonFile(event)">
+  </div>
 
   <script src="script.js"></script>
 </body>
