@@ -185,6 +185,31 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   };
 
+	async function fetchQuotesFromServer() {
+  try {
+    // Mock API endpoint (replace with your own mock if required)
+    const response = await fetch("https://jsonplaceholder.typicode.com/posts");
+    const data = await response.json();
+
+    // Extract only the fields you need (e.g., title as quote)
+    const quotes = data.slice(0, 5).map(item => item.title);
+
+    // Store in local storage for offline use
+    localStorage.setItem("quotes", JSON.stringify(quotes));
+
+    return quotes;
+  } catch (error) {
+    console.error("Error fetching quotes:", error);
+    return [];
+  }
+}
+
+document.addEventListener("DOMContentLoaded", async () => {
+  const quotes = await fetchQuotesFromServer();
+  displayQuotes(quotes);
+});
+
+
   // Event listener
   newQuoteBtn.addEventListener("click", displayRandomQuote);
 
