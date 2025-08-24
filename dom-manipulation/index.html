@@ -12,7 +12,6 @@
   <label for="categoryFilter">Filter by category:</label>
   <select id="categoryFilter" onchange="filterQuotes()">
     <option value="all">All Categories</option>
-    <!-- Categories will be added dynamically -->
   </select>
 
   <!-- Quote Display -->
@@ -27,6 +26,11 @@
   <div>
     <button onclick="exportToJsonFile()">Export Quotes</button>
     <input type="file" id="importFile" accept=".json" onchange="importFromJsonFile(event)">
+  </div>
+
+  <!-- Sync with Server -->
+  <div>
+    <button onclick="syncWithServer()">Sync Quotes</button>
   </div>
 
   <script src="script.js"></script>
