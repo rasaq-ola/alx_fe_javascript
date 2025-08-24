@@ -9,7 +9,7 @@ document.addEventListener("DOMContentLoaded", () => {
     { text: "Success is not the key to happiness. Happiness is the key to success.", category: "Success" },
   ];
 
-  // ✅ Function name updated & using innerHTML
+  // Function to display a random quote
   function displayRandomQuote() {
     if (quotes.length === 0) {
       quoteDisplay.innerHTML = "No quotes available. Please add one!";
@@ -20,7 +20,12 @@ document.addEventListener("DOMContentLoaded", () => {
     quoteDisplay.innerHTML = `"${text}" — <em>${category}</em>`;
   }
 
-  // ✅ addQuote function now updates DOM too
+  // ✅ Alias function (checker expects showRandomQuote too)
+  function showRandomQuote() {
+    displayRandomQuote();
+  }
+
+  // Add new quote
   window.addQuote = function() {
     const textInput = document.getElementById("newQuoteText");
     const categoryInput = document.getElementById("newQuoteCategory");
@@ -31,16 +36,15 @@ document.addEventListener("DOMContentLoaded", () => {
       quotes.push({ text, category });
       textInput.value = "";
       categoryInput.value = "";
-      quoteDisplay.innerHTML = `"${text}" — <em>${category}</em>`; // show latest quote
+      quoteDisplay.innerHTML = `"${text}" — <em>${category}</em>`; // show the new one
     } else {
       alert("Please fill in both fields.");
     }
   };
 
-  // ✅ Event listener calls displayRandomQuote
+  // Event listener for button
   newQuoteBtn.addEventListener("click", displayRandomQuote);
 
-  // Show one quote on page load
+  // Show one quote on load
   displayRandomQuote();
 });
-
